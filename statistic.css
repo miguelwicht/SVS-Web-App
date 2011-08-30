@@ -1,0 +1,146 @@
+body {	
+		position:relative; 
+		font-family: Helvetica;
+		margin: 0;
+		
+		
+}
+
+*.navbar {
+	text-align: center;
+
+}
+
+*.navbar ul {
+	margin:0px;
+	padding: 0px;
+	list-style-type: none;
+	float: left;
+}
+
+*.navbar ul li {
+	float: left;
+	padding-left: 10px;
+	line-height: 44px;
+	display: block;
+}
+
+*.navbar ul li a {
+	display: block;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Arial, Georgia, sans-serif;
+	font-size: 22px;
+	color: white;
+	text-shadow: 0 1px 0 #262626;
+}
+
+*.navbar ul li a img{
+	margin-top: 5px;
+	height: 35px;
+}
+
+
+table {
+		width: 100%;
+		border-style: hidden;
+		border-collapse: collapse;
+		text-align: left;
+		}
+
+tr {
+	border-style: solid;
+	border-width: 1px;
+	}
+	
+tr.odd td {
+		border-style: solid;
+		border-width: 1px;
+		padding: 5px;
+		background-color: #3a9901;
+}	
+tr.even td {
+		border-style: solid;
+		border-width: 1px;
+		padding: 5px;
+		background-color: white;
+}
+	
+th {
+	border-style: solid;
+	border-width: 1px;
+	padding: 5px;
+	
+	}
+
+td {
+	border-style: solid;
+	border-width: 1px;
+	padding: 5px;
+	
+	
+	}
+
+*.num {
+max-width: 20px;
+}
+
+*.navbar {
+
+height: 44px;
+width: 100%;
+background-image: url('resources/design/nav_bar2.png');
+background-repeat: repeat-x;
+
+/*background: #008909; /* old browsers 
+background: -moz-linear-gradient(top, #008909 0%, #008909 49%, #00BC16 100%); /* firefox 
+
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#008909), color-stop(49%,#008909), color-stop(100%,#00BC16)); /* webkit 
+
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#008909', endColorstr='#00BC16',GradientType=0 ); /* ie 
+
+background: -o-linear-gradient(top, #008909 0%,#008909 49%,#00BC16 100%); /* opera */
+
+}
+
+ul {
+	margin:0px;
+	padding: 0px;
+	list-style-type: none;
+	
+}
+
+.hide_infos{
+display: none; 
+}
+
+*.clear {
+	clear: both;
+
+}
+
+
+h3 {
+	margin-bottom: 1px;
+	margin-top: 1px;
+
+}
+
+#loadingscreen{
+	position: absolute
+
+
+}
+
+a, a:link, a:visited, a:hover, a:active, a:focus, p, h1, h2, h3, ul, li {
+	text-decoration: none;
+	/*color: black;
+	font-family: Helvetica;
+	*/
+}
+
+.gameday_headline {
+	margin-bottom:10px;
+}
+
+.gameday_li {
+	margin-bottom: 20px;
+}

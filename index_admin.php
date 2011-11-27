@@ -42,7 +42,7 @@
 		$(document).ready(function(){
 			
 			
-			$("#content").load("content/svs3_statistic_all.html", function(){
+			$("#content").load("content/svs3_statistic_all.php", function(){
 				myScroll = new iScroll('content');
 			});
 			
@@ -80,7 +80,7 @@
 		
 			$("#stats").click(function(event){
 				event.preventDefault()
-				$("#content").load("content/svs3_statistic_all.html", function(){
+				$("#content").load("content/svs3_statistic_all.php", function(){
 					myScroll = new iScroll('content');
 					setTimeout(function () {
 							myScroll.refresh();

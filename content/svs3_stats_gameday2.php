@@ -6,10 +6,40 @@ ob_start();
 <?
 include("../mysql/dbConnect.php");
 mysql_query("set names utf8;"); 
-
+/*
 $query="SELECT * FROM svs3_1112_player ORDER BY lastName ASC";
 $result=mysql_query($query);
 $num=mysql_numrows($result);
+
+*/
+/*
+$query = "SELECT p.firstName AS firstName, p.lastName AS lastName, COUNT(DISTINCT g.goal_id) AS goals, COUNT(DISTINCT a.assist_id) AS assists, COUNT(DISTINCT y.yellow_id) AS yellow, COUNT(DISTINCT r.red_id) AS red FROM svs3_1112_gamedayParticipants AS pa LEFT JOIN svs3_1112_player AS p ON pa.player_id = p.id LEFT JOIN svs3_1112_goals AS g ON p.id = g.player_id LEFT JOIN svs3_1112_assists AS a ON p.id = a.player_id LEFT JOIN svs3_1112_yellow AS y ON p.id = y.player_id LEFT JOIN svs3_1112_red AS r ON p.id = r.player_id GROUP BY pa.gameday_id ORDER BY lastName ASC";
+*/
+
+/*
+$query = "SELECT p.firstName AS firstName, p.lastName AS lastName FROM svs3_1112_gamedayParticipants AS pa LEFT JOIN svs3_1112_player AS p ON pa.player_id = p.id UNION (SELECT COUNT(*) AS goals FROM svs3_1112_goals AS g WHERE g.gameday_id = pa.gameday_id AND pa.player_id = p.id) UNION (SELECT COUNT(*) AS assists FROM svs3_1112_assists AS a WHERE a.gameday_id = pa.gameday_id AND pa.player_id = p.id) UNION (SELECT COUNT(*) AS yellows FROM svs3_1112_yellow AS y WHERE y.gameday_id = pa.gameday_id AND pa.player_id = p.id) UNION (SELECT COUNT(*) AS reds FROM svs3_1112_red AS r WHERE r.gameday_id = pa.gameday_id AND pa.player_id = p.id) GROUP BY p.id ORDER BY lastName ASC";
+
+*/
+
+$query = "SELECT p.firstName AS firstName, p.lastName AS lastName FROM svs3_1112_gamedayParticipants AS pa LEFT JOIN svs3_1112_player AS p ON pa.player_id = p.id UNION (SELECT COUNT(*) AS goals FROM svs3_1112_goals AS g) UNION (SELECT COUNT(*) AS assists FROM svs3_1112_assists AS a) UNION (SELECT COUNT(*) AS yellows FROM svs3_1112_yellow AS y) UNION (SELECT COUNT(*) AS reds FROM svs3_1112_red AS r) GROUP BY p.id ORDER BY lastName ASC";
+
+
+$result=mysql_query($query);
+
+$statistic = array();
+	while ($row = mysql_fetch_assoc($result)) {
+	$statistic[]= $row;
+}
+
+echo mysql_error();
+print_r($result);
+
+$queries = array();
+$results = array();
+$queries['gamedays'] = "SELECT * FROM svs3_1112_gamedays ASC";
+$queries['gameday_team'] = "SELECT * FROM svs3_1112_gamedayParticipants AS pa LEFT JOIN svs3_1112_player AS p ON pa.participant_id = p.id LEFT JOIN";
+$results['gamedays'] = mysql_query($queries['gamedays']);
+
 
 ?>
 

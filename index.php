@@ -29,7 +29,7 @@
     })();
   	</script> 
 	<link rel="apple-touch-icon" href="resources/design/iphone_web_clip.png"/>
-	<script type="text/javascript" src="jquery-1.5.2.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="jquery.form.js"></script>
 	<script src="highcharts.js" type="text/javascript"></script>
 	<script src="resources/js/iscroll.js" type="text/javascript"></script>
@@ -42,7 +42,7 @@
 		$(document).ready(function(){
 			
 			
-			$("#content").load("content/svs3_statistic_all.html", function(){
+			$("#content").load("content/svs3_statistic_all.php", function(){
 				myScroll = new iScroll('content');
 			});
 			
@@ -50,7 +50,7 @@
 		
 			$("#stats").click(function(event){
 				event.preventDefault()
-				$("#content").load("content/svs3_statistic_all.html", function(){
+				$("#content").load("content/svs3_statistic_all.php", function(){
 					myScroll = new iScroll('content');
 					setTimeout(function () {
 							myScroll.refresh();

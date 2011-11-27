@@ -1,16 +1,18 @@
-<? 
-$cachefile ="svs3_statistic_all.html";
-ob_start();
-
-?>
-<?
+<?php
 include("../mysql/dbConnect.php");
 mysql_query("set names utf8;"); 
 
-$query="SELECT * FROM svs3_1112_player ORDER BY lastName ASC";
-$result=mysql_query($query);
-$num=mysql_numrows($result);
 
+$query = "SELECT p.firstName AS firstName, p.lastName AS lastName, COUNT(DISTINCT pa.participant_id) AS participations, COUNT(DISTINCT g.goal_id) AS goals, COUNT(DISTINCT a.assist_id) AS assists, COUNT(DISTINCT y.yellow_id) AS yellow, COUNT(DISTINCT r.red_id) AS red, COUNT(DISTINCT t.trikots_id) AS trikots FROM svs3_1112_gamedayParticipants AS pa LEFT JOIN svs3_1112_player AS p ON pa.player_id = p.id LEFT JOIN svs3_1112_goals AS g ON p.id = g.player_id LEFT JOIN svs3_1112_assists AS a ON p.id = a.player_id LEFT JOIN svs3_1112_yellow AS y ON p.id = y.player_id LEFT JOIN svs3_1112_red AS r ON p.id = r.player_id LEFT JOIN svs3_1112_trikots AS t ON p.id = t.player_id GROUP BY p.id ORDER BY lastName ASC";
+
+$result=mysql_query($query);
+echo mysql_error();
+
+$statistic = array();
+	while ($row = mysql_fetch_assoc($result)) {
+	$statistic[]= $row;
+}
+mysql_close();
 ?>
 
 
@@ -27,79 +29,31 @@ $num=mysql_numrows($result);
 		<th>Tr.</th>
 	</tr>
 
-
-
-
-<?
+<?php
 $i=0;
 $count=1;
-
-while ($i < $num) {
-
-$id=mysql_result($result,$i,"id");
-
-$participations_query="SELECT COUNT(*) FROM svs3_1112_gamedayParticipants WHERE player_id = '$id'";
-$participations_result=mysql_query($participations_query);
-$participations_count=mysql_result($participations_result,0);
-
-$goals_query="SELECT COUNT(*) FROM svs3_1112_goals WHERE player_id = '$id'";
-$goals_result=mysql_query($goals_query);
-$goals_count=mysql_result($goals_result,0);
-
-$assists_query="SELECT COUNT(*) FROM svs3_1112_assists WHERE player_id = '$id'";
-$assists_result=mysql_query($assists_query);
-$assists_count=mysql_result($assists_result,0);
-
-$yellow_query="SELECT COUNT(*) FROM svs3_1112_yellow WHERE player_id = '$id'";
-$yellow_result=mysql_query($yellow_query);
-$yellow_count=mysql_result($yellow_result,0);
-
-$red_query="SELECT COUNT(*) FROM svs3_1112_red WHERE player_id = '$id'";
-$red_result=mysql_query($red_query);
-$red_count=mysql_result($red_result,0);
-
-$trikots_query="SELECT COUNT(*) FROM svs3_1112_trikots WHERE player_id = '$id'";
-$trikots_result=mysql_query($trikots_query);
-$trikots_count=mysql_result($trikots_result,0);
-
-$lastName=mysql_result($result,$i,"lastName");
-$firstName=mysql_result($result,$i,"firstName");
+$max = count($statistic);
+while ($i < $max) {
 
 ?>
-			
-		<? if ($participations_count > 0) { ?>
-
-        	<? if ($count&1) $class = "odd";?>
-            <tr class="<? echo $class;?>">
-           		<td><? echo $count;?></td>
-          	 	<td><? echo $lastName;?></td>
-          	 	<td><? echo $firstName;?></td>
-          	 	<td><? echo $participations_count;?></td>
-          	 	<td><? echo $goals_count;?></td>
-          	 	<td><? echo $assists_count;?></td>
-          	 	<td><? echo $yellow_count?></td>
-          	 	<td><? echo $red_count?></td>
-          	 	<td><? echo $trikots_count?></td>
-            </tr>
-            
-            <? $class = "even" ?>
-	
-		<? 
-		$count++;
-		} ?>
-<?
-$i++;
-}
-mysql_close();
+<?php if ($count&1) $class = "odd";?>
+  <tr class="<? echo $class;?>">
+ 		<td><?php echo $count;?></td>
+	 	<td><?php echo $statistic[$i]['lastName'];?></td>
+	 	<td><?php echo $statistic[$i]['firstName'];?></td>
+	 	<td><?php echo $statistic[$i]['participations'];?></td>
+	 	<td><?php echo $statistic[$i]['goals'];?></td>
+	 	<td><?php echo $statistic[$i]['assists'];?></td>
+	 	<td><?php echo $statistic[$i]['yellow']?></td>
+	 	<td><?php echo $statistic[$i]['red']?></td>
+	 	<td><?php echo $statistic[$i]['trikots']?></td>
+  </tr>
+<?php 
+	$class = "even"; 	
+	$count++;
+	$i++;
+	}
 ?>
 </table>
 
 
-<? 
-
-$fp =fopen($cachefile,'w');
-fwrite($fp, ob_get_contents());
-fclose($fp);
-ob_end_flush();
-
-?>

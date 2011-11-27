@@ -44,7 +44,7 @@
 				</select>
 			
 			</td>
-			<td><input type="text" name="date" value="JJJJ-MM-TT" class="inputs"></td>
+			<td><input type="date" name="date" class="inputs"></td>
 			<td><select name="home" class="inputs">
 					<option value="1">Ja</option>
 					<option value="0">Nein</option>
